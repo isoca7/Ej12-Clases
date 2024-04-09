@@ -27,6 +27,7 @@ interface Reserva {
   ];
 
 export  class Caso1 {
+    reservas : Reserva[]
     tipoHabitacion: 'standard' | 'suite'
     precioTipoHabitacion: number
     desayuno: boolean
@@ -37,12 +38,11 @@ export  class Caso1 {
     precioAdicionalPorPersona: number
   
     constructor(
-      tipoHabitacion: 'standard' | 'suite',
-      desayuno: boolean,
-      pax: number,
-      noches: number
+      reservas : Reserva[]
     ) {
-      this.tipoHabitacion = tipoHabitacion
+      this
+      reservas.forEach((reserva : Reserva)=>{
+        this.tipoHabitacion = reserva.tipoHabitacion
       switch (this.tipoHabitacion) {
         case 'standard':
           this.precioTipoHabitacion = 100
@@ -50,12 +50,14 @@ export  class Caso1 {
         case 'suite':
           this.precioTipoHabitacion = 150
       }
-      this.desayuno = desayuno
+      this.desayuno = reserva.desayuno
       this.precioDesayuno = 15
-      this.pax = pax
-      this.noches = noches
+      this.pax = reserva.pax
+      this.noches = reserva.noches
       this.iva = 0.21
       this.precioAdicionalPorPersona = 40
+      })
+      
     }
   
     calculoDesayuno() {
